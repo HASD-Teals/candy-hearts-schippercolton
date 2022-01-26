@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Heart {
     // PROPERTIES
     private String color;
@@ -88,21 +90,36 @@ public class Heart {
         this.sayings = sayings;
     }
 
-    public String report() {
+    public String getReport() {
         return this.color + "\n" + this.size + "\n" + this.sayings + "\n"
          + this.costPerPound + "\n" + this.available + "\n" + this.stock; 
     }
 
     public void adjPrice(double percentage) {
         if(percentage > 1) {
-            this.costPerPound = (costPerPound * percentage);
+            this.costPerPound *= percentage;
         }
         if (percentage > 0 && percentage < 1) {
-            this.costPerPound = (costPerPound * (1.0 + percentage));
+            this.costPerPound *= (1.0 + percentage);
         }
     }
 
+    public static int buyOut(Heart[] arr) {
+        return (Arrays.stream(arr).mapToInt(Heart::getStock).sum());
+    }
+
+    
+
+    public void adjStock(int num) {
+        if(this.stock >= num )
+            this.stock += num;
+    } 
+
     public void inStock() {
-        //Good and excellent code.   Test
+        if(this.stock > 0) {
+            this.available = true;
+        } else {
+            this.available = false;
+        }
     }
 }
