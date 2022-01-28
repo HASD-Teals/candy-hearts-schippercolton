@@ -13,7 +13,7 @@ public class Heart {
 
     // CONSTRUCTORS
     public Heart() {
-        this.color = "";
+        this.setColor("");
         this.setSize(0);
         this.setSayings("");
         this.setCalories(0);
@@ -25,7 +25,7 @@ public class Heart {
     
 
     public Heart(String color, int size, String sayings, int calories, double costPerPound, boolean available, int stock) {
-        this.color = color;
+        this.setColor(color);
         this.setSize(size);
         this.setSayings(sayings);
         this.setCalories(calories);
@@ -108,7 +108,9 @@ public class Heart {
         return (Arrays.stream(arr).mapToInt(Heart::getStock).sum());
     }
 
-    
+    public static double placeOrder(Heart[] arr, String color, int num) {
+        return (Arrays.stream(arr).filter(Hrt -> Hrt.getColor().toLowerCase().equals(color)).mapToDouble(Heart::getCostPerPound).sum()) * num;
+    }
 
     public void adjStock(int num) {
         if(this.stock >= num )
